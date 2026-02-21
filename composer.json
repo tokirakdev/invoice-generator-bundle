@@ -1,0 +1,40 @@
+{
+    "name": "tokirak/invoice-generator-bundle",
+    "description": "Symfony bundle for generating PDF invoices",
+    "type": "library",
+    "version": "1.0.0",
+    "license": "MIT",
+    "autoload": {
+        "psr-4": {
+            "Tokirak\\InvoiceGenerator\\": "src/"
+        }
+    },
+    "autoload-dev": {
+        "psr-4": {
+            "Tokirak\\Tests\\": "tests/"
+        }
+    },
+    "authors": [
+        {
+            "name": "Toki Rak",
+            "email": "tokirak.dev@gmail.com"
+        }
+    ],
+    "minimum-stability": "stable",
+    "require": {
+        "php": ">=8.3",
+        "symfony/framework-bundle": "^7.4",
+        "symfony/twig-bundle": "^7.4",
+        "dompdf/dompdf": "^3.1",
+        "ext-intl": "*",
+        "symfony/translation": "^7.4",
+        "twig/intl-extra": "^3.23"
+    },
+    "require-dev": {
+        "symfony/test-pack": "^1.2",
+        "symfony/twig-bridge": "^7.4",
+        "symfony/yaml": "^7.4",
+        "smalot/pdfparser": "^2.12",
+        "friendsofphp/php-cs-fixer": "^3.94"
+    }
+}

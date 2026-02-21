@@ -1,0 +1,152 @@
+<!DOCTYPE html>
+<html lang="{{ locale.getLanguageCode() }}">
+<head>
+    <meta charset="UTF-8">
+    <title>{{ 'invoice.title'|trans({}, 'messages', locale.value) }} {{ invoice.invoiceNumber.value }}</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            font-size: 12px;
+            color: #333;
+            margin: 20px;
+        }
+        .header {
+            margin-bottom: 30px;
+            overflow: hidden;
+        }
+        .supplier {
+            float: left;
+            width: 48%;
+        }
+        .customer {
+            float: right;
+            width: 48%;
+            text-align: right;
+        }
+        .clear {
+            clear: both;
+        }
+        .invoice-info {
+            margin: 30px 0;
+            text-align: center;
+        }
+        .invoice-info h2 {
+            margin: 0 0 10px 0;
+            font-size: 20px;
+        }
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            margin: 20px 0;
+        }
+        th, td {
+            border: 1px solid #ddd;
+            padding: 10px;
+            text-align: left;
+        }
+        th {
+            background-color: #f8f9fa;
+            font-weight: bold;
+        }
+        .text-right {
+            text-align: right;
+        }
+        .totals {
+            margin-top: 30px;
+            float: right;
+            width: 45%;
+        }
+        .totals table {
+            border: none;
+        }
+        .totals td {
+            border: none;
+            padding: 5px 10px;
+        }
+        .totals .total-ttc {
+            font-weight: bold;
+            font-size: 14px;
+            border-top: 2px solid #333;
+            padding-top: 10px;
+        }
+    </style>
+</head>
+<body>
+{# HEADER - Supplier & Customer #}
+<div class="header">
+    <div class="supplier">
+        <strong>{{ invoice.supplier.name }}</strong><br>
+        {{ invoice.supplier.address.format(locale)|nl2br }}<br>
+        <br>
+        {{ invoice.supplier.companyId.getLabel(locale) }}: {{ invoice.supplier.companyId.format() }}<br>
+        {% if invoice.supplier.VATNumber %}
+            {{ invoice.supplier.VATNumber.getLabel(locale) }}: {{ invoice.supplier.VATNumber.format() }}
+        {% endif %}
+    </div>
+
+    <div class="customer">
+        <strong>{{ invoice.customer.name }}</strong><br>
+        {{ invoice.customer.address.format(locale)|nl2br }}
+    </div>
+
+    <div class="clear"></div>
+</div>
+
+{# INVOICE INFO #}
+<div class="invoice-info">
+    <h2>{{ 'invoice.title'|trans({}, 'messages', locale.value)|upper }} N° {{ invoice.invoiceNumber.value }}</h2>
+    <div>
+        {{ 'invoice.date'|trans({}, 'messages', locale.value) }}: {{ invoice.issuedAt|format_date('long', locale.value) }}<br>
+        {{ 'invoice.due_date'|trans({}, 'messages', locale.value) }}: {{ invoice.dueAt|format_date('long', locale.value) }}
+    </div>
+</div>
+
+{# LINES #}
+<table>
+    <thead>
+    <tr>
+        <th>{{ 'invoice.line.description'|trans({}, 'messages', locale.value) }}</th>
+        <th class="text-right">{{ 'invoice.line.quantity'|trans({}, 'messages', locale.value) }}</th>
+        <th class="text-right">{{ 'invoice.line.unit_price_ht'|trans({}, 'messages', locale.value) }}</th>
+        <th class="text-right">{{ 'invoice.line.vat_rate'|trans({}, 'messages', locale.value) }}</th>
+        <th class="text-right">{{ 'invoice.line.total_ht'|trans({}, 'messages', locale.value) }}</th>
+    </tr>
+    </thead>
+    <tbody>
+    {% for line in invoice.lines %}
+        <tr>
+            <td>{{ line.description }}</td>
+            <td class="text-right">{{ line.quantity }}</td>
+            <td class="text-right">{{ line.unitePriceHT.format(locale) }}</td>
+            <td class="text-right">{{ line.VATRate.format() }}</td>
+            <td class="text-right">{{ line.calculateTotalHT().format(locale) }}</td>
+        </tr>
+    {% endfor %}
+    </tbody>
+</table>
+
+{# TOTALS #}
+<div class="totals">
+    <table>
+        <tr>
+            <td>{{ 'invoice.total.ht'|trans({}, 'messages', locale.value) }}:</td>
+            <td class="text-right">{{ invoice.calculateTotalHT().format(locale) }}</td>
+        </tr>
+
+        {% for rateKey, amounts in invoice.getVATBreakdown() %}
+            <tr>
+                <td>{{ 'invoice.total.vat'|trans({}, 'messages', locale.value) }} {{ amounts.rate.format() }}:</td>
+                <td class="text-right">{{ amounts.vat.format(locale) }}</td>
+            </tr>
+        {% endfor %}
+
+        <tr class="total-ttc">
+            <td>{{ 'invoice.total.ttc'|trans({}, 'messages', locale.value) }}:</td>
+            <td class="text-right">{{ invoice.calculateTotalTTC().format(locale) }}</td>
+        </tr>
+    </table>
+</div>
+
+<div class="clear"></div>
+</body>
+</html>

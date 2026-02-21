@@ -1,0 +1,9 @@
+services:
+  # On définit les réglages par défaut pour tous les services du bundle
+  _defaults:
+    autowire: true
+    autoconfigure: true
+
+  Tokirak\InvoiceGenerator\Infrastructure\Generator\PdfGenerator:
+      arguments:
+          $config: '%invoice_generator.templates%'

@@ -1,0 +1,33 @@
+invoice:
+  title: "Facture"
+  date: "Date"
+  due_date: "Date d'échéance"
+
+  line:
+    description: "Désignation"
+    quantity: "Qté"
+    unit_price_ht: "Prix unit. HT"
+    vat_rate: "TVA"
+    total_ht: "Total HT"
+
+  total:
+    ht: "Total HT"
+    vat: "TVA"
+    ttc: "Total TTC"
+
+quote:
+  title: "Devis"
+  date: "Date"
+  valid_until: "Valable jusqu'au"
+
+  line:
+    description: "Désignation"
+    quantity: "Qté"
+    unit_price_ht: "Prix unit. HT"
+    vat_rate: "TVA"
+    total_ht: "Total HT"
+
+  total:
+    ht: "Total HT"
+    vat: "TVA"
+    ttc: "Total TTC"

@@ -1,0 +1,33 @@
+invoice:
+  title: "Invoice"
+  date: "Date"
+  due_date: "Due date"
+
+  line:
+    description: "Description"
+    quantity: "Qty"
+    unit_price_ht: "Unit price (excl. VAT)"
+    vat_rate: "VAT"
+    total_ht: "Total (excl. VAT)"
+
+  total:
+    ht: "Total (excl. VAT)"
+    vat: "VAT"
+    ttc: "Total (incl. VAT)"
+
+quote:
+  title: "Quote"
+  date: "Date"
+  valid_until: "Valid until"
+
+  line:
+    description: "Description"
+    quantity: "Qty"
+    unit_price_ht: "Unit price (excl. VAT)"
+    vat_rate: "VAT"
+    total_ht: "Total (excl. VAT)"
+
+  total:
+    ht: "Total (excl. VAT)"
+    vat: "VAT"
+    ttc: "Total (incl. VAT)"
